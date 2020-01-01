@@ -1,4 +1,4 @@
-import { useCallback, useReducer, useMemo, createContext } from "react"
+import { createContext, useCallback, useMemo, useReducer } from "react"
 
 type AppStateType = {
   count: number
@@ -26,30 +26,26 @@ const appReducer = (state: AppStateType, action: { type: string }): AppStateType
 }
 
 type DispatcherType = {
-  increment: () => void
-  decrement: () => void
+  increment?: () => void
+  decrement?: () => void
 }
 
 export const AppContext = createContext<AppStateType>(initialAppState)
-export const DispatcherContext = createContext<DispatcherType>({} as DispatcherType)
+export const DispatcherContext = createContext<DispatcherType>({})
 
-export const useAppContext = (): [AppStateType, DispatcherType] => {
+export const useAppContext = (): [AppStateType, Required<DispatcherType>] => {
   const [state, dispatch] = useReducer(appReducer, initialAppState)
 
-  const increment = useCallback(() => {
-    dispatch({ type: "increment" })
-  }, [])
+  const increment = useCallback(() => dispatch({ type: "increment" }), [dispatch])
+  const decrement = useCallback(() => dispatch({ type: "decrement" }), [dispatch])
 
-  const decrement = useCallback(() => {
-    dispatch({ type: "decrement" })
-  }, [])
-
-  const dispatcher = useMemo(() => {
-    return {
+  const dispatcher = useMemo(
+    () => ({
       increment,
       decrement
-    }
-  }, [increment, decrement])
+    }),
+    [increment, decrement]
+  )
 
   return [state, dispatcher]
 }

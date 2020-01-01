@@ -1,8 +1,8 @@
 import { NextPage } from "next"
 import styled from "styled-components"
 import { Reset } from "styled-reset"
-import { Counter, GlobalStyle, Header, Footer } from "../components"
-import { useAppContext, AppContext, DispatcherContext } from "../context/AppContext"
+import { Counter, Footer, GlobalStyle, Header } from "../components"
+import { AppContext, DispatcherContext, useAppContext } from "../context/AppContext"
 
 const Index: NextPage = () => {
   const [state, dispatcher] = useAppContext()

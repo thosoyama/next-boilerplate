@@ -1,4 +1,4 @@
 export * from "./Counter"
-export * from "./Header"
-export * from "./Global"
 export * from "./Footer"
+export * from "./Global"
+export * from "./Header"
