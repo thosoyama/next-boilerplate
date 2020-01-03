@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { AppContext, DispatcherContext } from "../../context/AppContext"
+import { AppContext, DispatcherContext } from "../../hooks/AppContext"
 
 export const Counter: React.FC = () => {
   const { count } = useContext(AppContext)
