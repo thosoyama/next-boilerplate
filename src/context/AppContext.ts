@@ -15,18 +15,17 @@ enum ActionType {
 
 const appReducer = (state: AppStateT, action: { type: string }): AppStateT => {
   switch (action.type) {
-    case ActionType.INCREMENT:
-      return {
-        ...state,
-        count: state.count + 1
-      }
-    case ActionType.DECREMENT:
-      return {
-        ...state,
-        count: state.count - 1
-      }
-    default:
+    case ActionType.INCREMENT: {
+      const count = state.count + 1
+      return { ...state, count }
+    }
+    case ActionType.DECREMENT: {
+      const count = state.count - 1
+      return { ...state, count }
+    }
+    default: {
       return state
+    }
   }
 }
 
