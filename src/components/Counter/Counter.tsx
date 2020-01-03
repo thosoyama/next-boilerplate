@@ -1,10 +1,10 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import { StateContext, DispatcherContext } from "../../hooks/AppContext"
+import { AppStateContext, AppDispatcherContext } from "../../hooks/AppContext"
 
 export const Counter: React.FC = () => {
-  const { count } = useContext(StateContext)
-  const { increment, decrement } = useContext(DispatcherContext)
+  const { count } = useContext(AppStateContext)
+  const { increment, decrement } = useContext(AppDispatcherContext)
 
   return (
     <>
