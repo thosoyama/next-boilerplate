@@ -51,7 +51,7 @@ const appReducer = (state: TAppState, action: TAction): TAppState => {
 }
 
 // contexts
-export const AppContext = createContext<TAppState>(initialAppState)
+export const StateContext = createContext<TAppState>(initialAppState)
 export const DispatcherContext = createContext<TDispatcher>({})
 
 // hooks

@@ -2,13 +2,13 @@ import { NextPage } from "next"
 import styled from "styled-components"
 import { Reset } from "styled-reset"
 import { Counter, Footer, GlobalStyle, Header } from "../components"
-import { AppContext, DispatcherContext, useAppContext } from "../hooks/AppContext"
+import { StateContext, DispatcherContext, useAppContext } from "../hooks/AppContext"
 
 const Index: NextPage = () => {
   const [state, dispatcher] = useAppContext()
 
   return (
-    <AppContext.Provider value={state}>
+    <StateContext.Provider value={state}>
       <DispatcherContext.Provider value={dispatcher}>
         <Reset />
         <GlobalStyle />
@@ -20,7 +20,7 @@ const Index: NextPage = () => {
           <Footer />
         </FlexRoot>
       </DispatcherContext.Provider>
-    </AppContext.Provider>
+    </StateContext.Provider>
   )
 }
 
