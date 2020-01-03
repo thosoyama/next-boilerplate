@@ -16,10 +16,11 @@ export const Counter: React.FC = () => {
 }
 
 const Count = styled.span`
-  margin: 0 10px;
+  width: 2.5em;
   font-size: 20px;
   font-weight: bold;
   vertical-align: middle;
+  text-align: center;
 `
 
 const Button = styled.button`
