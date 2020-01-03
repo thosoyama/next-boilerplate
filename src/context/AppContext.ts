@@ -1,14 +1,14 @@
 import { createContext, useCallback, useMemo, useReducer } from "react"
 
-type AppStateType = {
+type AppStateT = {
   count: number
 }
 
-const initialAppState: AppStateType = {
+const initialAppState: AppStateT = {
   count: 0
 }
 
-const appReducer = (state: AppStateType, action: { type: string }): AppStateType => {
+const appReducer = (state: AppStateT, action: { type: string }): AppStateT => {
   switch (action.type) {
     case "increment":
       return {
@@ -25,15 +25,16 @@ const appReducer = (state: AppStateType, action: { type: string }): AppStateType
   }
 }
 
-type DispatcherType = {
-  increment?: () => void
-  decrement?: () => void
+type DispatcherFuncT = () => void
+type DispatcherT = {
+  increment?: DispatcherFuncT
+  decrement?: DispatcherFuncT
 }
 
-export const AppContext = createContext<AppStateType>(initialAppState)
-export const DispatcherContext = createContext<DispatcherType>({})
+export const AppContext = createContext<AppStateT>(initialAppState)
+export const DispatcherContext = createContext<DispatcherT>({})
 
-export const useAppContext = (): [AppStateType, Required<DispatcherType>] => {
+export const useAppContext = (): [AppStateT, Required<DispatcherT>] => {
   const [state, dispatch] = useReducer(appReducer, initialAppState)
 
   const increment = useCallback(() => dispatch({ type: "increment" }), [dispatch])
