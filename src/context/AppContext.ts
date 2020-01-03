@@ -1,5 +1,6 @@
-import { createContext, useCallback, useMemo, useReducer } from "react"
+import { createContext, useMemo, useReducer } from "react"
 
+// states
 type AppStateT = {
   count: number
 }
@@ -8,18 +9,38 @@ const initialAppState: AppStateT = {
   count: 0
 }
 
-enum ActionType {
-  INCREMENT = "increment",
-  DECREMENT = "decrement"
+// actions
+const INCREMENT = "increment" as const
+const DECREMENT = "decrement" as const
+
+const increment = () => {
+  return {
+    type: INCREMENT
+  }
 }
 
-const appReducer = (state: AppStateT, action: { type: string }): AppStateT => {
+const decrement = () => {
+  return {
+    type: DECREMENT
+  }
+}
+
+type ActionT = ReturnType<typeof increment> | ReturnType<typeof decrement>
+
+// dispatchers
+type DispacherFuncT = () => void
+type DispatcherT = {
+  [key in typeof INCREMENT | typeof DECREMENT]?: DispacherFuncT
+}
+
+// reducer
+const appReducer = (state: AppStateT, action: ActionT): AppStateT => {
   switch (action.type) {
-    case ActionType.INCREMENT: {
+    case INCREMENT: {
       const count = state.count + 1
       return { ...state, count }
     }
-    case ActionType.DECREMENT: {
+    case DECREMENT: {
       const count = state.count - 1
       return { ...state, count }
     }
@@ -29,25 +50,20 @@ const appReducer = (state: AppStateT, action: { type: string }): AppStateT => {
   }
 }
 
-type DispatcherT = {
-  [key in ActionType]?: () => void
-}
-
+// contexts
 export const AppContext = createContext<AppStateT>(initialAppState)
 export const DispatcherContext = createContext<DispatcherT>({})
 
+// hooks
 export const useAppContext = (): [AppStateT, Required<DispatcherT>] => {
   const [state, dispatch] = useReducer(appReducer, initialAppState)
 
-  const increment = useCallback(() => dispatch({ type: ActionType.INCREMENT }), [dispatch])
-  const decrement = useCallback(() => dispatch({ type: ActionType.DECREMENT }), [dispatch])
-
   const dispatcher = useMemo(
     () => ({
-      increment,
-      decrement
+      increment: () => dispatch(increment()),
+      decrement: () => dispatch(decrement())
     }),
-    [increment, decrement]
+    [dispatch]
   )
 
   return [state, dispatcher]
