@@ -1,11 +1,11 @@
 import { createContext, useMemo, useReducer } from "react"
 
 // states
-type AppStateT = {
+type TAppState = {
   count: number
 }
 
-const initialAppState: AppStateT = {
+const initialAppState: TAppState = {
   count: 0
 }
 
@@ -25,16 +25,16 @@ const decrement = () => {
   }
 }
 
-type ActionT = ReturnType<typeof increment> | ReturnType<typeof decrement>
+type TAction = ReturnType<typeof increment> | ReturnType<typeof decrement>
 
 // dispatchers
 type DispacherFuncT = () => void
-type DispatcherT = {
+type TDispatcher = {
   [key in typeof INCREMENT | typeof DECREMENT]?: DispacherFuncT
 }
 
 // reducer
-const appReducer = (state: AppStateT, action: ActionT): AppStateT => {
+const appReducer = (state: TAppState, action: TAction): TAppState => {
   switch (action.type) {
     case INCREMENT: {
       const count = state.count + 1
@@ -51,11 +51,11 @@ const appReducer = (state: AppStateT, action: ActionT): AppStateT => {
 }
 
 // contexts
-export const AppContext = createContext<AppStateT>(initialAppState)
-export const DispatcherContext = createContext<DispatcherT>({})
+export const AppContext = createContext<TAppState>(initialAppState)
+export const DispatcherContext = createContext<TDispatcher>({})
 
 // hooks
-export const useAppContext = (): [AppStateT, Required<DispatcherT>] => {
+export const useAppContext = (): [TAppState, Required<TDispatcher>] => {
   const [state, dispatch] = useReducer(appReducer, initialAppState)
 
   const dispatcher = useMemo(
