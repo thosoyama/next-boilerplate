@@ -8,14 +8,19 @@ const initialAppState: AppStateT = {
   count: 0
 }
 
+enum ActionType {
+  INCREMENT = "increment",
+  DECREMENT = "decrement"
+}
+
 const appReducer = (state: AppStateT, action: { type: string }): AppStateT => {
   switch (action.type) {
-    case "increment":
+    case ActionType.INCREMENT:
       return {
         ...state,
         count: state.count + 1
       }
-    case "decrement":
+    case ActionType.DECREMENT:
       return {
         ...state,
         count: state.count - 1
@@ -25,10 +30,8 @@ const appReducer = (state: AppStateT, action: { type: string }): AppStateT => {
   }
 }
 
-type DispatcherFuncT = () => void
 type DispatcherT = {
-  increment?: DispatcherFuncT
-  decrement?: DispatcherFuncT
+  [key in ActionType]?: () => void
 }
 
 export const AppContext = createContext<AppStateT>(initialAppState)
@@ -37,8 +40,8 @@ export const DispatcherContext = createContext<DispatcherT>({})
 export const useAppContext = (): [AppStateT, Required<DispatcherT>] => {
   const [state, dispatch] = useReducer(appReducer, initialAppState)
 
-  const increment = useCallback(() => dispatch({ type: "increment" }), [dispatch])
-  const decrement = useCallback(() => dispatch({ type: "decrement" }), [dispatch])
+  const increment = useCallback(() => dispatch({ type: ActionType.INCREMENT }), [dispatch])
+  const decrement = useCallback(() => dispatch({ type: ActionType.DECREMENT }), [dispatch])
 
   const dispatcher = useMemo(
     () => ({
