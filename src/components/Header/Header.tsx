@@ -1,10 +1,14 @@
 import React from "react"
 import styled from "styled-components"
 
-export const Header: React.FC = () => {
+type TProps = {
+  children?: React.ReactNode
+}
+
+export const Header: React.FC<TProps> = props => {
   return (
     <Root>
-      <Title>Couter demo</Title>
+      <Title>{props?.children || "Demo"}</Title>
     </Root>
   )
 }

@@ -1,4 +1,5 @@
 import { NextPage } from "next"
+import Head from "next/head"
 import styled from "styled-components"
 import { Reset } from "styled-reset"
 import { Counter, Footer, GlobalStyle, Header } from "../components"
@@ -10,10 +11,13 @@ const Index: NextPage = () => {
   return (
     <StateContext.Provider value={state}>
       <DispatcherContext.Provider value={dispatcher}>
+        <Head>
+          <title>Counter</title>
+        </Head>
         <Reset />
         <GlobalStyle />
         <FlexRoot>
-          <Header />
+          <Header>Counter</Header>
           <FlexBody>
             <Counter />
           </FlexBody>
