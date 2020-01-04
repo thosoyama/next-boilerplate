@@ -13,17 +13,8 @@ const initialAppState: AppState = {
 const INCREMENT = "increment" as const
 const DECREMENT = "decrement" as const
 
-const increment = () => {
-  return {
-    type: INCREMENT
-  }
-}
-
-const decrement = () => {
-  return {
-    type: DECREMENT
-  }
-}
+const increment = () => ({ type: INCREMENT })
+const decrement = () => ({ type: DECREMENT })
 
 type AppAction = ReturnType<typeof increment> | ReturnType<typeof decrement>
 
