@@ -17,17 +17,15 @@ export const Padding = styled.div<{
   left?: string
   all?: string
 }>`
-  ${props =>
-    props.all
-      ? css`
-          padding: ${props.all};
-        `
-      : css`
-          padding-top: ${props.top};
-          padding-right: ${props.right};
-          padding-bottom: ${props.bottom};
-          padding-left: ${props.left};
-        `}
+  ${// prettier-ignore
+  ({ all, top, right, bottom, left }) => all ? css`
+    padding: ${all};
+  ` : css`
+    padding-top: ${top};
+    padding-right: ${right};
+    padding-bottom: ${bottom};
+    padding-left: ${left};
+  `}
 `
 Padding.defaultProps = { top: "0", right: "0", bottom: "0", left: "0" }
 
@@ -38,17 +36,15 @@ export const Margin = styled.div<{
   left?: string
   all?: string
 }>`
-  ${props =>
-    props.all
-      ? css`
-          margin: ${props.all};
-        `
-      : css`
-          margin-top: ${props.top};
-          margin-right: ${props.right};
-          margin-bottom: ${props.bottom};
-          margin-left: ${props.left};
-        `}
+  ${// prettier-ignore
+  ({ all, top, right, bottom, left }) => all ? css`
+    margin: ${all};
+  ` : css`
+    margin-top: ${top};
+    margin-right: ${right};
+    margin-bottom: ${bottom};
+    margin-left: ${left};
+  `}
 `
 Margin.defaultProps = { top: "0", right: "0", bottom: "0", left: "0" }
 
