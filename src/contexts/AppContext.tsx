@@ -1,4 +1,4 @@
-import { createContext, Dispatch, FC, Reducer, useContext, useReducer } from "react"
+import React, { createContext, useContext, useReducer } from "react"
 
 // actions
 const INCREMENT = "increment" as const
@@ -24,7 +24,7 @@ const initialState: Readonly<AppState> = {
 }
 
 // reducer
-const appReducer: Reducer<AppState, AppAction> = (state, action) => {
+const appReducer: React.Reducer<AppState, AppAction> = (state, action) => {
   switch (action.type) {
     case INCREMENT: {
       return { ...state, count: state.count + 1 }
@@ -39,7 +39,7 @@ const appReducer: Reducer<AppState, AppAction> = (state, action) => {
 }
 
 // dispacher
-type AppDispatch = Dispatch<AppAction>
+type AppDispatch = React.Dispatch<AppAction>
 
 const initialDispatch: AppDispatch = () => {
   throw new TypeError("Context not provided.")
@@ -52,7 +52,7 @@ export const useAppContext = () => {
   return useContext(AppContext)
 }
 
-export const AppProvidor: FC = props => {
+export const AppProvidor: React.FC = props => {
   const [state, dispatch] = useReducer(appReducer, initialState)
   return <AppContext.Provider value={[state, dispatch]}>{props?.children}</AppContext.Provider>
 }
