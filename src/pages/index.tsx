@@ -3,28 +3,24 @@ import Head from "next/head"
 import styled from "styled-components"
 import { Reset } from "styled-reset"
 import { Counter, Footer, GlobalStyle, Header } from "../components"
-import { AppStateContext, AppDispatcherContext, useAppContext } from "../hooks/AppContext"
+import { AppProvidor } from "../contexts/AppContext"
 
 const Index: NextPage = () => {
-  const [state, dispatcher] = useAppContext()
-
   return (
-    <AppStateContext.Provider value={state}>
-      <AppDispatcherContext.Provider value={dispatcher}>
-        <Head>
-          <title>Counter</title>
-        </Head>
-        <Reset />
-        <GlobalStyle />
-        <FlexRoot>
-          <Header>Counter</Header>
-          <FlexBody>
-            <Counter />
-          </FlexBody>
-          <Footer />
-        </FlexRoot>
-      </AppDispatcherContext.Provider>
-    </AppStateContext.Provider>
+    <AppProvidor>
+      <Head>
+        <title>Counter</title>
+      </Head>
+      <Reset />
+      <GlobalStyle />
+      <FlexRoot>
+        <Header>Counter</Header>
+        <FlexBody>
+          <Counter />
+        </FlexBody>
+        <Footer />
+      </FlexRoot>
+    </AppProvidor>
   )
 }
 

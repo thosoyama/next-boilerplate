@@ -1,10 +1,12 @@
-import React, { useContext } from "react"
+import React, { useCallback } from "react"
 import styled from "styled-components"
-import { AppStateContext, AppDispatcherContext } from "../../hooks/AppContext"
+import { actions, useAppContext } from "../../contexts/AppContext"
 
 export const Counter: React.FC = () => {
-  const { count } = useContext(AppStateContext)
-  const { increment, decrement } = useContext(AppDispatcherContext)
+  const [{ count }, dispatch] = useAppContext()
+
+  const increment = useCallback(() => dispatch(actions.increment()), [])
+  const decrement = useCallback(() => dispatch(actions.decrement()), [])
 
   return (
     <>
